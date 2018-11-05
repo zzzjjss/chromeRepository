@@ -35,6 +35,6 @@ function askTry() {
 				sureBtn[0].click();
 			}
 			openTryItem();
-		}, 1000);
+		}, 3000);
 	}
 }
