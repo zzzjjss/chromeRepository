@@ -29,7 +29,7 @@ function askTry() {
 	var tryBtn = $("a.app-btn.btn-application");
 	if (tryBtn.length == 1) {
 		tryBtn[0].click();
-		setInterval(function () {
+		setTimeout(function () {
 			var sureBtn = $("div.ui-dialog").find("a.y");
 			if (sureBtn.length == 1) {
 				sureBtn[0].click();
