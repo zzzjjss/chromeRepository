@@ -12,6 +12,10 @@ $(document).ready(function () {
 		var href = $(this).find("a").attr("href");
 		localStorage.setItem(href, href);
 	});
+	if(localStorage.length>200){
+		openTryItem();
+		return;
+	}
 	var nextPage = $("#pager").find("a.ui-pager-next").length;
 	if (nextPage == 1) {
 		$("#pager").find("a.ui-pager-next")[0].click();
