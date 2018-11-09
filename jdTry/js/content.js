@@ -3,7 +3,21 @@ $(document).ready(function () {
 		askTry();
 		return;
 	}
-
+	setTimeout(() => {
+		addTryItemToLocalStorage();
+		if(localStorage.length>2000){
+			openTryItem();
+			return;
+		}
+		var nextPage = $("#pager").find("a.ui-pager-next").length;
+		if (nextPage == 1) {
+			$("#pager").find("a.ui-pager-next")[0].click();
+		} else {
+			openTryItem();
+		}
+	}, 1000);
+});
+function  addTryItemToLocalStorage(){
 	$("div .try-item").each(function () {
 		var text=$(this).find("div.try-button.show").text();
 		if(text=="已申请"){
@@ -13,18 +27,11 @@ $(document).ready(function () {
 		localStorage.setItem(href, href);
 		console.log("add  new item to localStorage:"+href);
 	});
-	if(localStorage.length>200){
-		openTryItem();
+}
+function openTryItem() {
+	if(localStorage.length==0){
 		return;
 	}
-	var nextPage = $("#pager").find("a.ui-pager-next").length;
-	if (nextPage == 1) {
-		$("#pager").find("a.ui-pager-next")[0].click();
-	} else {
-		openTryItem();
-	}
-});
-function openTryItem() {
 	var key = localStorage.key(0);
 	localStorage.removeItem(key);
 	window.location = key;
