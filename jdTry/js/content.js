@@ -5,7 +5,7 @@ $(document).ready(function () {
 	}
 	setTimeout(() => {
 		addTryItemToLocalStorage();
-		if(localStorage.length>2000){
+		if(localStorage.length>500){
 			openTryItem();
 			return;
 		}
