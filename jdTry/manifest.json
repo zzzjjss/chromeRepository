@@ -11,6 +11,10 @@
     ],
     "js": ["js/jquery.min.js","js/content.js"],
     "run_at": "document_end"
+  },{
+    "matches":["https://t.jd.com/follow/vender/*"],
+    "js":["js/jquery.min.js","js/cancelFocus.js"],
+    "run_at":"document_end"
   }
 ],
   "icons": {

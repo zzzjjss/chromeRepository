@@ -1,4 +1,22 @@
 $(document).ready(function () {
+	var currentPath=window.location.pathname;
+	if(currentPath=="/activity/getActivityList"){
+		addTryItemToLocalStorage();
+		if(localStorage.length>500){
+			openTryItem();
+			return;
+		}
+		var nextPage = $("#pager").find("a.ui-pager-next").length;
+		if (nextPage == 1) {
+			$("#pager").find("a.ui-pager-next")[0].click();
+		}else{
+			openTryItem();
+		}	
+	}else if(currentPath.endsWith(".html")||currentPath.endsWith("cfvalmdjrr")){
+		askTry();
+	}
+
+/**
 	if ($("a.app-btn.btn-application").length == 1) {
 		askTry();
 		return;
@@ -16,6 +34,7 @@ $(document).ready(function () {
 			openTryItem();
 		}
 	}, 1000);
+ */
 });
 function  addTryItemToLocalStorage(){
 	$("div .try-item").each(function () {
@@ -37,6 +56,7 @@ function openTryItem() {
 	window.location = key;
 }
 function askTry() {
+	console.log("start to ask try");
 	var stateText=$("div.freeTry").find("div.state").text();
 	if(stateText.search("您已提交申请")>-1){
 		openTryItem();
@@ -58,5 +78,10 @@ function askTry() {
 				openTryItem();
 			},3000);
 		}, 3000);
+	}else{
+		setTimeout(function(){
+			openTryItem();
+		},3000);
+		
 	}
 }
