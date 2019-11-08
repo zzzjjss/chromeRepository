@@ -12,8 +12,10 @@ $(document).ready(function () {
 		}else{
 			openTryItem();
 		}	
-	}else if(currentPath.endsWith(".html")||currentPath.endsWith("cfvalmdjrr")){
+	}else if(currentPath.endsWith(".html")){
 		askTry();
+	}else{
+		openTryItem();
 	}
 
 /**
@@ -43,17 +45,29 @@ function  addTryItemToLocalStorage(){
 			return;
 		}
 		var href = $(this).find("a").attr("href");
-		localStorage.setItem(href, href);
-		console.log("add  new item to localStorage:"+href);
+		if(href.endsWith(".html")){
+			localStorage.setItem(href, href);
+			console.log("add  new item to localStorage:"+href);
+		}
 	});
 }
 function openTryItem() {
 	if(localStorage.length==0){
 		return;
 	}
-	var key = localStorage.key(0);
-	localStorage.removeItem(key);
-	window.location = key;
+	var i=0;
+	while(true){
+		var key = localStorage.key(i);
+		console.log("key--->:"+key);	
+		if(key.endsWith(".html")){
+			setTimeout(function(){
+				localStorage.removeItem(key);
+				window.location = key;
+			},1000);
+			break;
+		}
+		i++;
+	}
 }
 function askTry() {
 	console.log("start to ask try");
@@ -82,6 +96,5 @@ function askTry() {
 		setTimeout(function(){
 			openTryItem();
 		},3000);
-		
 	}
 }
