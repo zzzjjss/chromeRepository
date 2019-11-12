@@ -12,7 +12,7 @@ $(document).ready(function () {
 		}else{
 			openTryItem();
 		}	
-	}else if(currentPath.endsWith(".html")){
+	}else if(currentPath!=null&&currentPath.endsWith(".html")){
 		askTry();
 	}else{
 		openTryItem();
@@ -56,17 +56,25 @@ function openTryItem() {
 		return;
 	}
 	var i=0;
+	var foundItem=false;
 	while(true){
 		var key = localStorage.key(i);
 		console.log("key--->:"+key);	
-		if(key.endsWith(".html")){
+		if(key!=null&&key.endsWith(".html")){
+			foundItem=true;
 			setTimeout(function(){
 				localStorage.removeItem(key);
 				window.location = key;
 			},1000);
 			break;
+		}else if(i>localStorage.length){
+			break;
 		}
 		i++;
+	}
+
+	if(!foundItem){
+		window.location="https://try.jd.com/activity/getActivityList";
 	}
 }
 function askTry() {
@@ -85,8 +93,24 @@ function askTry() {
 				sureBtn[0].click();
 			}
 			setTimeout(function(){
+				var cleanFocus=$("div.f-gray").text();
+				if(cleanFocus.search("数超过上限")>-1){
+					window.open("https://t.jd.com/follow/vender");
+					setTimeout(function(){
+						window.location.reload();
+					},120*1000);
+					return;
+				}
 				var msg=$("div.ui-dialog-content").text();
 				if(msg.search("请明天申请")>-1){
+					var timer=setInterval(function(){
+						window.location.reload();
+						console.log("refresh the page");
+					},30*60*1000);
+					setTimeout(function(){
+						clearInterval(timer);
+						openTryItem();
+					},24*60*60*1000);
 					return;
 				}
 				openTryItem();

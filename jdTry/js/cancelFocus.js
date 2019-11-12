@@ -12,7 +12,7 @@ $(document).ready(function () {
                     $( "a:contains('确定')")[0].click();
                     console.log("sure cancel");
                 },3000);
-            },3000);
+            },2000);
         },3000);
     },3000);
 });
